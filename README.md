@@ -1,1 +1,1 @@
-# web-audio-synth
+# Web Audio Synth
