@@ -16,6 +16,9 @@ const context: AudioContext = new AudioContext();
 const volume: GainNode = context.createGain();
 volume.connect(context.destination);
 
+const compressor: DynamicsCompressorNode = context.createDynamicsCompressor();
+compressor.connect(volume);
+
 const envelope = { attack: 0.0, decay: 0.0, sustain: 0.0, release: 0.0 };
 
 function playNote(note: string): void {
@@ -30,7 +33,7 @@ function playNote(note: string): void {
     amp.gain.linearRampToValueAtTime(1, context.currentTime + envelope.attack);
     amp.gain.linearRampToValueAtTime(envelope.sustain, context.currentTime + envelope.attack + envelope.decay);
     osc.connect(amp);
-    amp.connect(volume);
+    amp.connect(compressor);
 
     voices[note] = amp;
 
