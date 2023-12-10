@@ -13,13 +13,16 @@ const voices: { [key: string]: OscillatorNode | undefined } = {};
 
 const context: AudioContext = new AudioContext();
 
+const volume: GainNode = context.createGain();
+volume.connect(context.destination);
+
 function playNote(note: string): void {
   const freq: number | undefined = frequencies[note];
 
   if (freq != undefined) {
     const osc: OscillatorNode = context.createOscillator();
     osc.frequency.setValueAtTime(freq, context.currentTime);
-    osc.connect(context.destination);
+    osc.connect(volume);
 
     voices[note] = osc;
 
@@ -29,7 +32,18 @@ function playNote(note: string): void {
 
 function endNote(note: string): void {
   voices[note]?.stop();
+  voices[note]?.disconnect();
   delete voices[note];
+}
+
+const volumeInput: HTMLElement | null  = document.getElementById('volume');
+
+if (volumeInput != null && volumeInput instanceof HTMLInputElement) {
+  volume.gain.setValueAtTime(parseFloat(volumeInput.value), context.currentTime);
+
+  volumeInput.addEventListener('input', _ => {
+    volume.gain.setValueAtTime(parseFloat(volumeInput.value), context.currentTime);
+  });
 }
 
 const keys: HTMLCollection | undefined = document.getElementById('keyboard')?.children;
