@@ -120,3 +120,30 @@ if (keys != undefined) {
     }
   }
 }
+
+const keymap: { [key: string]: string | undefined} = {
+  'KeyA': 'C3', 'KeyW': 'C#3', 'KeyS': 'D3', 'KeyE': 'D#3', 'KeyD': 'E3',
+  'KeyF': 'F3', 'KeyT': 'F#3', 'KeyG': 'G3', 'KeyY': 'G#3', 'KeyH': 'A3',
+  'KeyU': 'A#3', 'KeyJ': 'B3', 'KeyK': 'C4', 'KeyO': 'C#4', 'KeyL': 'D4',
+  'KeyP': 'D#4', 'Semicolon': 'E4'
+};
+
+document.addEventListener('keydown', event => {
+  if (event instanceof KeyboardEvent && !event.repeat) {
+    const note: string | undefined = keymap[event.code];
+
+    if (note != undefined) {
+      playNote(note);
+    }
+  }
+});
+
+document.addEventListener('keyup', event => {
+  if (event instanceof KeyboardEvent) {
+    const note: string | undefined = keymap[event.code];
+
+    if (note != undefined) {
+      endNote(note);
+    }
+  }
+});
