@@ -19,6 +19,8 @@ volume.connect(context.destination);
 const compressor: DynamicsCompressorNode = context.createDynamicsCompressor();
 compressor.connect(volume);
 
+let waveform: OscillatorType = 'sine';
+
 const envelope = { attack: 0.0, decay: 0.0, sustain: 0.0, release: 0.0 };
 
 function playNote(note: string): void {
@@ -27,6 +29,7 @@ function playNote(note: string): void {
   if (freq != undefined) {
     const osc: OscillatorNode = context.createOscillator();
     osc.frequency.setValueAtTime(freq, context.currentTime);
+    osc.type = waveform;
 
     const amp: GainNode = context.createGain();
     amp.gain.setValueAtTime(0, context.currentTime);
@@ -58,6 +61,16 @@ if (volumeInput != null && volumeInput instanceof HTMLInputElement) {
 
   volumeInput.addEventListener('input', _ => {
     volume.gain.setValueAtTime(parseFloat(volumeInput.value), context.currentTime);
+  });
+}
+
+const waveformSelect: HTMLElement | null = document.getElementById('waveform');
+
+if (waveformSelect != null && waveformSelect instanceof HTMLSelectElement) {
+  waveform = waveformSelect.value as OscillatorType;
+
+  waveformSelect.addEventListener('input', _ => {
+    waveform = waveformSelect.value as OscillatorType;
   });
 }
 
