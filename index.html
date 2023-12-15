@@ -23,6 +23,19 @@
       </select>
     </div>
     <div class="w-full h-full">
+      <label for="filter">Filter</label>
+      <select id="filter">
+        <option value="lowpass">Low-pass</option>
+        <option value="highpass">High-pass</option>
+        <option value="bandpass">Band-pass</option>
+        <option value="lowshelf">Low-shelf</option>
+        <option value="highshelf">High-shelf</option>
+        <option value="peaking">Peaking</option>
+        <option value="notch">Notch</option>
+        <option value="allpass">All-pass</option>
+      </select>
+    </div>
+    <div class="w-full h-full">
       <label for="attack">Attack</label>
       <input id="attack" type="range" min="0.01" max="2" step="0.01">
       <label for="decay">Decay</label>

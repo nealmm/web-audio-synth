@@ -20,6 +20,11 @@ const compressor: DynamicsCompressorNode = context.createDynamicsCompressor();
 compressor.connect(volume);
 
 let waveform: OscillatorType = 'sine';
+let filterType: BiquadFilterType = 'notch';
+
+const filter: BiquadFilterNode = context.createBiquadFilter();
+filter.type = filterType;
+filter.connect(compressor);
 
 const envelope = { attack: 0.0, decay: 0.0, sustain: 0.0, release: 0.0 };
 
@@ -36,7 +41,7 @@ function playNote(note: string): void {
     amp.gain.linearRampToValueAtTime(1, context.currentTime + envelope.attack);
     amp.gain.linearRampToValueAtTime(envelope.sustain, context.currentTime + envelope.attack + envelope.decay);
     osc.connect(amp);
-    amp.connect(compressor);
+    amp.connect(filter);
 
     voices[note] = amp;
 
@@ -71,6 +76,18 @@ if (waveformSelect != null && waveformSelect instanceof HTMLSelectElement) {
 
   waveformSelect.addEventListener('input', _ => {
     waveform = waveformSelect.value as OscillatorType;
+  });
+}
+
+const filterSelect: HTMLElement | null = document.getElementById('filter');
+
+if (filterSelect != null && filterSelect instanceof HTMLSelectElement) {
+  filterType = filterSelect.value as BiquadFilterType;
+
+  filterSelect.addEventListener('input', _ => {
+    filterType = filterSelect.value as BiquadFilterType;
+    filter.type = filterType;
+    console.log(filter.type);
   });
 }
 
