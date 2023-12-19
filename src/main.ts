@@ -24,6 +24,7 @@ let waveform: OscillatorType = 'sine';
 let filterType: BiquadFilterType = 'lowpass';
 let filterFreq: number = 0;
 let filterQ: number = 0;
+let amount: number = 0;
 
 const ampEnvelope = { attack: 0.0, decay: 0.0, sustain: 0.0, release: 0.0 };
 
@@ -45,9 +46,9 @@ function playNote(note: string): void {
     const filter: BiquadFilterNode = context.createBiquadFilter();
     filter.type = filterType;
     filter.Q.setValueAtTime(filterQ, context.currentTime);
-    filter.frequency.setValueAtTime(0, context.currentTime);
-    filter.frequency.linearRampToValueAtTime(filterFreq, context.currentTime + filterEnvelope.attack);
-    filter.frequency.linearRampToValueAtTime(filterFreq * filterEnvelope.sustain, context.currentTime + filterEnvelope.attack + filterEnvelope.decay);
+    filter.frequency.setValueAtTime(filterFreq, context.currentTime);
+    filter.frequency.linearRampToValueAtTime(filterFreq + amount, context.currentTime + filterEnvelope.attack);
+    filter.frequency.linearRampToValueAtTime(filterFreq + amount * filterEnvelope.sustain, context.currentTime + filterEnvelope.attack + filterEnvelope.decay);
 
     osc.connect(amp);
     amp.connect(filter);
@@ -70,7 +71,7 @@ function endNote(note: string): void {
 
     filter.frequency.cancelScheduledValues(context.currentTime);
     filter.frequency.setValueAtTime(filter.frequency.value, context.currentTime);
-    filter.frequency.linearRampToValueAtTime(0, context.currentTime + filterEnvelope.release)
+    filter.frequency.linearRampToValueAtTime(filterFreq, context.currentTime + filterEnvelope.release)
   }
 }
 
@@ -124,6 +125,16 @@ if (resonance != null && resonance instanceof HTMLInputElement) {
 
   resonance.addEventListener('input', _ => {
     filterQ = parseFloat(resonance.value);
+  });
+}
+
+const amountInput: HTMLElement | null = document.getElementById('amount');
+
+if (amountInput != null && amountInput instanceof HTMLInputElement) {
+  amount = parseFloat(amountInput.value);
+
+  amountInput.addEventListener('input', _ => {
+    amount = parseFloat(amountInput.value);
   });
 }
 
