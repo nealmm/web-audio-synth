@@ -9,7 +9,7 @@ const frequencies: { [key: string]: number | undefined } = {
   'G#4': 415.30, 'A4': 440.00, 'A#4': 466.16, 'B4': 493.88, 'C5': 523.25
 };
 
-const voices: { [key: string]: GainNode | undefined } = {};
+const voices: { [key: string]: [GainNode, BiquadFilterNode] | undefined } = {};
 
 const context: AudioContext = new AudioContext();
 
@@ -20,13 +20,14 @@ const compressor: DynamicsCompressorNode = context.createDynamicsCompressor();
 compressor.connect(volume);
 
 let waveform: OscillatorType = 'sine';
-let filterType: BiquadFilterType = 'notch';
 
-const filter: BiquadFilterNode = context.createBiquadFilter();
-filter.type = filterType;
-filter.connect(compressor);
+let filterType: BiquadFilterType = 'lowpass';
+let filterFreq: number = 0;
+let filterQ: number = 0;
 
-const envelope = { attack: 0.0, decay: 0.0, sustain: 0.0, release: 0.0 };
+const ampEnvelope = { attack: 0.0, decay: 0.0, sustain: 0.0, release: 0.0 };
+
+const filterEnvelope = { attack: 0.0, decay: 0.0, sustain: 0.0, release: 0.0 };
 
 function playNote(note: string): void {
   const freq: number | undefined = frequencies[note];
@@ -38,24 +39,38 @@ function playNote(note: string): void {
 
     const amp: GainNode = context.createGain();
     amp.gain.setValueAtTime(0, context.currentTime);
-    amp.gain.linearRampToValueAtTime(1, context.currentTime + envelope.attack);
-    amp.gain.linearRampToValueAtTime(envelope.sustain, context.currentTime + envelope.attack + envelope.decay);
+    amp.gain.linearRampToValueAtTime(1, context.currentTime + ampEnvelope.attack);
+    amp.gain.linearRampToValueAtTime(ampEnvelope.sustain, context.currentTime + ampEnvelope.attack + ampEnvelope.decay);
+
+    const filter: BiquadFilterNode = context.createBiquadFilter();
+    filter.type = filterType;
+    filter.Q.setValueAtTime(filterQ, context.currentTime);
+    filter.frequency.setValueAtTime(0, context.currentTime);
+    filter.frequency.linearRampToValueAtTime(filterFreq, context.currentTime + filterEnvelope.attack);
+    filter.frequency.linearRampToValueAtTime(filterFreq * filterEnvelope.sustain, context.currentTime + filterEnvelope.attack + filterEnvelope.decay);
+
     osc.connect(amp);
     amp.connect(filter);
+    filter.connect(compressor);
 
-    voices[note] = amp;
+    voices[note] = [amp, filter];
 
     osc.start();
   }
 }
 
 function endNote(note: string): void {
-  const amp: GainNode | undefined = voices[note];
+  const voice: [GainNode, BiquadFilterNode] | undefined = voices[note];
 
-  if (amp != undefined) {
+  if (voice != undefined) {
+    const [amp, filter] = voice;
     amp.gain.cancelScheduledValues(context.currentTime);
     amp.gain.setValueAtTime(amp.gain.value, context.currentTime);
-    amp.gain.linearRampToValueAtTime(0, context.currentTime + envelope.release);
+    amp.gain.linearRampToValueAtTime(0, context.currentTime + ampEnvelope.release);
+
+    filter.frequency.cancelScheduledValues(context.currentTime);
+    filter.frequency.setValueAtTime(filter.frequency.value, context.currentTime);
+    filter.frequency.linearRampToValueAtTime(0, context.currentTime + filterEnvelope.release)
   }
 }
 
@@ -86,45 +101,103 @@ if (filterSelect != null && filterSelect instanceof HTMLSelectElement) {
 
   filterSelect.addEventListener('input', _ => {
     filterType = filterSelect.value as BiquadFilterType;
-    filter.type = filterType;
-    console.log(filter.type);
   });
 }
 
-const attackInput: HTMLElement | null = document.getElementById('attack');
-const decayInput: HTMLElement | null = document.getElementById('decay');
-const sustainInput: HTMLElement | null = document.getElementById('sustain');
-const releaseInput: HTMLElement | null = document.getElementById('release');
+const cutoff: HTMLElement | null = document.getElementById('cutoff');
 
-if (attackInput != null && attackInput instanceof HTMLInputElement) {
-  envelope.attack = parseFloat(attackInput.value);
+if (cutoff != null && cutoff instanceof HTMLInputElement) {
+  cutoff.setAttribute('min', `10`)
+  cutoff.setAttribute('max', `${context.sampleRate / 2}`);
 
-  attackInput.addEventListener('input', _ => {
-    envelope.attack = parseFloat(attackInput.value);
+  filterFreq = parseFloat(cutoff.value);
+
+  cutoff.addEventListener('input', _ => {
+    filterFreq = parseFloat(cutoff.value);
   });
 }
 
-if (decayInput != null && decayInput instanceof HTMLInputElement) {
-  envelope.decay = parseFloat(decayInput.value);
+const resonance: HTMLElement | null = document.getElementById('resonance');
 
-  decayInput.addEventListener('input', _ => {
-    envelope.decay = parseFloat(decayInput.value);
+if (resonance != null && resonance instanceof HTMLInputElement) {
+  filterQ = parseFloat(resonance.value);
+
+  resonance.addEventListener('input', _ => {
+    filterQ = parseFloat(resonance.value);
   });
 }
 
-if (sustainInput != null && sustainInput instanceof HTMLInputElement) {
-  envelope.sustain = parseFloat(sustainInput.value);
+const ampAttackInput: HTMLElement | null = document.getElementById('amp-attack');
+const ampDecayInput: HTMLElement | null = document.getElementById('amp-decay');
+const ampSustainInput: HTMLElement | null = document.getElementById('amp-sustain');
+const ampReleaseInput: HTMLElement | null = document.getElementById('amp-release');
 
-  sustainInput.addEventListener('input', _ => {
-    envelope.sustain = parseFloat(sustainInput.value);
+if (ampAttackInput != null && ampAttackInput instanceof HTMLInputElement) {
+  ampEnvelope.attack = parseFloat(ampAttackInput.value);
+
+  ampAttackInput.addEventListener('input', _ => {
+    ampEnvelope.attack = parseFloat(ampAttackInput.value);
   });
 }
 
-if (releaseInput != null && releaseInput instanceof HTMLInputElement) {
-  envelope.release = parseFloat(releaseInput.value);
+if (ampDecayInput != null && ampDecayInput instanceof HTMLInputElement) {
+  ampEnvelope.decay = parseFloat(ampDecayInput.value);
 
-  releaseInput.addEventListener('input', _ => {
-    envelope.release = parseFloat(releaseInput.value);
+  ampDecayInput.addEventListener('input', _ => {
+    ampEnvelope.decay = parseFloat(ampDecayInput.value);
+  });
+}
+
+if (ampSustainInput != null && ampSustainInput instanceof HTMLInputElement) {
+  ampEnvelope.sustain = parseFloat(ampSustainInput.value);
+
+  ampSustainInput.addEventListener('input', _ => {
+    ampEnvelope.sustain = parseFloat(ampSustainInput.value);
+  });
+}
+
+if (ampReleaseInput != null && ampReleaseInput instanceof HTMLInputElement) {
+  ampEnvelope.release = parseFloat(ampReleaseInput.value);
+
+  ampReleaseInput.addEventListener('input', _ => {
+    ampEnvelope.release = parseFloat(ampReleaseInput.value);
+  });
+}
+
+const filterAttackInput: HTMLElement | null = document.getElementById('filter-attack');
+const filterDecayInput: HTMLElement | null = document.getElementById('filter-decay');
+const filterSustainInput: HTMLElement | null = document.getElementById('filter-sustain');
+const filterReleaseInput: HTMLElement | null = document.getElementById('filter-release');
+
+if (filterAttackInput != null && filterAttackInput instanceof HTMLInputElement) {
+  filterEnvelope.attack = parseFloat(filterAttackInput.value);
+
+  filterAttackInput.addEventListener('input', _ => {
+    filterEnvelope.attack = parseFloat(filterAttackInput.value);
+  });
+}
+
+if (filterDecayInput != null && filterDecayInput instanceof HTMLInputElement) {
+  filterEnvelope.decay = parseFloat(filterDecayInput.value);
+
+  filterDecayInput.addEventListener('input', _ => {
+    filterEnvelope.decay = parseFloat(filterDecayInput.value);
+  });
+}
+
+if (filterSustainInput != null && filterSustainInput instanceof HTMLInputElement) {
+  filterEnvelope.sustain = parseFloat(filterSustainInput.value);
+
+  filterSustainInput.addEventListener('input', _ => {
+    filterEnvelope.sustain = parseFloat(filterSustainInput.value);
+  });
+}
+
+if (filterReleaseInput != null && filterReleaseInput instanceof HTMLInputElement) {
+  filterEnvelope.release = parseFloat(filterReleaseInput.value);
+
+  filterReleaseInput.addEventListener('input', _ => {
+    filterEnvelope.release = parseFloat(filterReleaseInput.value);
   });
 }
 

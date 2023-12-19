@@ -9,11 +9,19 @@
     <h1 class="title mb-6">
       Web Audio Synth
     </h1>
-    <div class="w-full h-full">
+    <main>
       <label for="volume">Volume</label>
       <input id="volume" type="range" min="0" max="1" step="0.01">
-    </div>
-    <div class="w-full h-full">
+      <div>
+        <label for="amp-attack">Attack</label>
+        <input id="amp-attack" type="range" min="0.01" max="2" step="0.01">
+        <label for="amp-decay">Decay</label>
+        <input id="amp-decay" type="range" min="0.01" max="2" step="0.01">
+        <label for="amp-sustain">Sustain</label>
+        <input id="amp-sustain" type="range" min="0" max="1" step="0.01">
+        <label for="amp-release">Release</label>
+        <input id="amp-release" type="range" min="0.01" max="2" step="0.01">
+      </div>
       <label for="waveform">Waveform</label>
       <select id="waveform">
         <option value="sine">Sine</option>
@@ -21,59 +29,63 @@
         <option value="sawtooth">Sawtooth</option>
         <option value="triangle">Triangle</option>
       </select>
-    </div>
-    <div class="w-full h-full">
-      <label for="filter">Filter</label>
-      <select id="filter">
-        <option value="lowpass">Low-pass</option>
-        <option value="highpass">High-pass</option>
-        <option value="bandpass">Band-pass</option>
-        <option value="lowshelf">Low-shelf</option>
-        <option value="highshelf">High-shelf</option>
-        <option value="peaking">Peaking</option>
-        <option value="notch">Notch</option>
-        <option value="allpass">All-pass</option>
-      </select>
-    </div>
-    <div class="w-full h-full">
-      <label for="attack">Attack</label>
-      <input id="attack" type="range" min="0.01" max="2" step="0.01">
-      <label for="decay">Decay</label>
-      <input id="decay" type="range" min="0.01" max="2" step="0.01">
-      <label for="sustain">Sustain</label>
-      <input id="sustain" type="range" min="0" max="1" step="0.01">
-      <label for="release">Release</label>
-      <input id="release" type="range" min="0.01" max="2" step="0.01">
-    </div>
-    <div class="w-full h-full">
-      <svg id="keyboard" viewBox="0 0 30 9">
-        <rect id="C3" x="0" y="0" width="2" height="9" fill="white" />
-        <rect id="D3" x="2" y="0" width="2" height="9" fill="white" />
-        <rect id="E3" x="4" y="0" width="2" height="9" fill="white" />
-        <rect id="F3" x="6" y="0" width="2" height="9" fill="white" />
-        <rect id="G3" x="8" y="0" width="2" height="9" fill="white" />
-        <rect id="A3" x="10" y="0" width="2" height="9" fill="white" />
-        <rect id="B3" x="12" y="0" width="2" height="9" fill="white" />
-        <rect id="C4" x="14" y="0" width="2" height="9" fill="white" />
-        <rect id="D4" x="16" y="0" width="2" height="9" fill="white" />
-        <rect id="E4" x="18" y="0" width="2" height="9" fill="white" />
-        <rect id="F4" x="20" y="0" width="2" height="9" fill="white" />
-        <rect id="G4" x="22" y="0" width="2" height="9" fill="white" />
-        <rect id="A4" x="24" y="0" width="2" height="9" fill="white" />
-        <rect id="B4" x="26" y="0" width="2" height="9" fill="white" />
-        <rect id="C5" x="28" y="0" width="2" height="9" fill="white" />
-        <rect id="C#3" x="1.5" y="0" width="1" height="5.5" fill="black" />
-        <rect id="D#3" x="3.5" y="0" width="1" height="5.5" fill="black" />
-        <rect id="F#3" x="7.5" y="0" width="1" height="5.5" fill="black" />
-        <rect id="G#3" x="9.5" y="0" width="1" height="5.5" fill="black" />
-        <rect id="A#3" x="11.5" y="0" width="1" height="5.5" fill="black" />
-        <rect id="C#4" x="15.5" y="0" width="1" height="5.5" fill="black" />
-        <rect id="D#4" x="17.5" y="0" width="1" height="5.5" fill="black" />
-        <rect id="F#4" x="21.5" y="0" width="1" height="5.5" fill="black" />
-        <rect id="G#4" x="23.5" y="0" width="1" height="5.5" fill="black" />
-        <rect id="A#4" x="25.5" y="0" width="1" height="5.5" fill="black" />
-      </svg>
-    </div>
+      <div>
+        <label for="filter">Filter Type</label>
+        <select id="filter">
+          <option value="lowpass">Low-pass</option>
+          <option value="highpass">High-pass</option>
+          <option value="bandpass">Band-pass</option>
+          <option value="lowshelf">Low-shelf</option>
+          <option value="highshelf">High-shelf</option>
+          <option value="peaking">Peaking</option>
+          <option value="notch">Notch</option>
+          <option value="allpass">All-pass</option>
+        </select>
+        <label for="cutoff">Cutoff</label>
+        <input id="cutoff" type="range" step="0.01">
+        <label for="resonance">Resonance</label>
+        <input id="resonance" type="range" min="0" max="50" step="0.01">
+      </div>
+      <div>
+        <label for="filter-attack">Attack</label>
+        <input id="filter-attack" type="range" min="0.01" max="2" step="0.01">
+        <label for="filter-decay">Decay</label>
+        <input id="filter-decay" type="range" min="0.01" max="2" step="0.01">
+        <label for="filter-sustain">Sustain</label>
+        <input id="filter-sustain" type="range" min="0" max="1" step="0.01">
+        <label for="filter-release">Release</label>
+        <input id="filter-release" type="range" min="0.01" max="2" step="0.01">
+      </div>
+      <div>
+        <svg id="keyboard" viewBox="0 0 30 9">
+          <rect id="C3" x="0" y="0" width="2" height="9" fill="white" />
+          <rect id="D3" x="2" y="0" width="2" height="9" fill="white" />
+          <rect id="E3" x="4" y="0" width="2" height="9" fill="white" />
+          <rect id="F3" x="6" y="0" width="2" height="9" fill="white" />
+          <rect id="G3" x="8" y="0" width="2" height="9" fill="white" />
+          <rect id="A3" x="10" y="0" width="2" height="9" fill="white" />
+          <rect id="B3" x="12" y="0" width="2" height="9" fill="white" />
+          <rect id="C4" x="14" y="0" width="2" height="9" fill="white" />
+          <rect id="D4" x="16" y="0" width="2" height="9" fill="white" />
+          <rect id="E4" x="18" y="0" width="2" height="9" fill="white" />
+          <rect id="F4" x="20" y="0" width="2" height="9" fill="white" />
+          <rect id="G4" x="22" y="0" width="2" height="9" fill="white" />
+          <rect id="A4" x="24" y="0" width="2" height="9" fill="white" />
+          <rect id="B4" x="26" y="0" width="2" height="9" fill="white" />
+          <rect id="C5" x="28" y="0" width="2" height="9" fill="white" />
+          <rect id="C#3" x="1.5" y="0" width="1" height="5.5" fill="black" />
+          <rect id="D#3" x="3.5" y="0" width="1" height="5.5" fill="black" />
+          <rect id="F#3" x="7.5" y="0" width="1" height="5.5" fill="black" />
+          <rect id="G#3" x="9.5" y="0" width="1" height="5.5" fill="black" />
+          <rect id="A#3" x="11.5" y="0" width="1" height="5.5" fill="black" />
+          <rect id="C#4" x="15.5" y="0" width="1" height="5.5" fill="black" />
+          <rect id="D#4" x="17.5" y="0" width="1" height="5.5" fill="black" />
+          <rect id="F#4" x="21.5" y="0" width="1" height="5.5" fill="black" />
+          <rect id="G#4" x="23.5" y="0" width="1" height="5.5" fill="black" />
+          <rect id="A#4" x="25.5" y="0" width="1" height="5.5" fill="black" />
+        </svg>
+      </div>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
