@@ -216,7 +216,54 @@ if (filterReleaseInput != null && filterReleaseInput instanceof HTMLInputElement
   });
 }
 
-const keys: HTMLCollection | undefined = document.getElementById('keyboard')?.children;
+const touchSupported = 'ontouchstart' in window;
+
+if (touchSupported) {
+  const lastTarget: { [key: string]: Element } = {};
+
+  const handlePress = (id: string) => {
+    playNote(id);
+
+    const svg: HTMLElement | null = document.getElementById(id);
+
+    if (svg != null) {
+      svg.style.fill = 'lightgray';
+    }
+  };
+
+  const handleDepress = (id: string) => {
+    endNote(id);
+
+    const svg: HTMLElement | null = document.getElementById(id);
+
+    if (svg != null) {
+      svg.style.fill = '';
+    }
+  };
+
+  document.addEventListener('touchstart', event => {
+    for (const touch of event.changedTouches) {
+      lastTarget[touch.identifier] = touch.target as Element;
+      handlePress((touch.target as Element).id);
+    }
+  });
+
+  document.addEventListener('touchend', event => {
+    for (const touch of event.changedTouches) {
+      handleDepress((touch.target as Element).id);
+      delete lastTarget[touch.identifier];
+    }
+  });
+
+  document.addEventListener('touchcancel', event => {
+    for (const touch of event.changedTouches) {
+      handleDepress(lastTarget[touch.identifier].id);
+      delete lastTarget[touch.identifier];
+    }
+  });
+}
+else {
+  const keys: HTMLCollection | undefined = document.getElementById('keyboard')?.children;
 
 if (keys != undefined) {
   for (let i = 0; i < keys.length; i++) {
@@ -301,3 +348,4 @@ document.addEventListener('keyup', event => {
     }
   }
 });
+}

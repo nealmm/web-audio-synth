@@ -10,8 +10,8 @@
       Web Audio Synth
     </h1>
     <main>
-      <div class="grid grid-cols-2">
-        <div class="grid grid-cols-2 border-solid border rounded p-2 m-1">
+      <div class="flex flex-wrap justify-center">
+        <div class="md:w-[48%] border-solid border rounded p-2 m-1">
             <h2 class="title mb-4 text-base col-span-2">Amplitude Envelope</h2>
             <label for="amplitude-attack">Attack</label>
             <input id="amplitude-attack" type="range" min="0" max="1" step="any">
@@ -22,7 +22,7 @@
             <label for="amplitude-release">Release</label>
             <input id="amplitude-release" type="range" min="0" max="1" step="any">
         </div>
-        <div class="grid grid-cols-2 border-solid border rounded p-2 m-1">
+        <div class="md:w-[48%] border-solid border rounded p-2 m-1">
             <h2 class="title mb-4 text-base col-span-2">Low-Pass Filter</h2>
             <label for="cutoff">Cutoff</label>
             <input id="cutoff" type="range" min="0" max="1" step="any">
@@ -31,7 +31,8 @@
             <label for="envelope-amount">Envelope Amount</label>
             <input id="envelope-amount" type="range" min="0" max="1" step="any">
             <label for="invert-envelope">Invert Envelope</label>
-            <input id="invert-envelope" type="checkbox">
+            <input id="invert-envelope" class="my-8" type="checkbox">
+            <br>
             <label for="filter-attack">Attack</label>
             <input id="filter-attack" type="range" min="0" max="1" step="any">
             <label for="filter-decay">Decay</label>
@@ -41,23 +42,33 @@
             <label for="filter-release">Release</label>
             <input id="filter-release" type="range" min="0" max="1" step="any">
         </div>
-        <div class="border-solid border rounded p-2 m-1">
+        <div class="w-[97%] border-solid border rounded p-2 m-1">
             <h2 class="title mb-4 text-base">Waveform</h2>
-            <input id="sine" type="radio" name="waveform" checked>
-            <label for="sine">Sine</label>
-            <input id="square" type="radio" name="waveform">
-            <label for="square">Square</label>
-            <input id="sawtooth" type="radio" name="waveform">
-            <label for="sawtooth">Sawtooth</label>
-            <input id="triangle" type="radio" name="waveform">
-            <label for="triangle">Triangle</label>
+            <div class="flex justify-around flex-wrap">
+              <div class="px-4">
+                <input id="sine" type="radio" name="waveform" checked>
+                <label for="sine">Sine</label>
+              </div>
+              <div class="px-4">
+                <input id="square" type="radio" name="waveform">
+                <label for="square">Square</label>
+              </div>
+              <div class="px-4">
+                <input id="sawtooth" type="radio" name="waveform">
+                <label for="sawtooth">Sawtooth</label>
+              </div>
+              <div class="px-4">
+                <input id="triangle" type="radio" name="waveform">
+                <label for="triangle">Triangle</label>
+              </div>
+            </div>
         </div>
-        <div class="border-solid border rounded p-2 m-1">
+        <div class="w-[97%] border-solid border rounded p-2 m-1">
             <h2 class="title mb-4 text-base">Volume</h2>
             <input id="volume" type="range" min="0" max="1" step="any">
         </div>
       </div>
-      <div class="mt-4 border dark:border-0">
+      <div class="mt-4 border dark:border-0 select-none">
         <svg id="keyboard" viewBox="0 0 30 9">
           <rect id="C3" x="0" y="0" width="2" height="9" fill="white" />
           <rect id="D3" x="2" y="0" width="2" height="9" fill="white" />
