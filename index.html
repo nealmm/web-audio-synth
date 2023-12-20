@@ -10,55 +10,54 @@
       Web Audio Synth
     </h1>
     <main>
-      <label for="volume">Volume</label>
-      <input id="volume" type="range" min="0" max="1" step="0.01">
-      <div>
-        <label for="amp-attack">Attack</label>
-        <input id="amp-attack" type="range" min="0.01" max="2" step="0.01">
-        <label for="amp-decay">Decay</label>
-        <input id="amp-decay" type="range" min="0.01" max="2" step="0.01">
-        <label for="amp-sustain">Sustain</label>
-        <input id="amp-sustain" type="range" min="0" max="1" step="0.01">
-        <label for="amp-release">Release</label>
-        <input id="amp-release" type="range" min="0.01" max="2" step="0.01">
+      <div class="grid grid-cols-2">
+        <div class="grid grid-cols-2 border-solid border rounded p-2 m-1">
+            <h2 class="title mb-4 text-base col-span-2">Amplitude Envelope</h2>
+            <label for="amplitude-attack">Attack</label>
+            <input id="amplitude-attack" type="range" min="0" max="1" step="any">
+            <label for="amplitude-decay">Decay</label>
+            <input id="amplitude-decay" type="range" min="0" max="1" step="any">
+            <label for="amplitude-sustain">Sustain</label>
+            <input id="amplitude-sustain" type="range" min="0" max="1" step="any">
+            <label for="amplitude-release">Release</label>
+            <input id="amplitude-release" type="range" min="0" max="1" step="any">
+        </div>
+        <div class="grid grid-cols-2 border-solid border rounded p-2 m-1">
+            <h2 class="title mb-4 text-base col-span-2">Low-Pass Filter</h2>
+            <label for="cutoff">Cutoff</label>
+            <input id="cutoff" type="range" min="0" max="1" step="any">
+            <label for="resonance">Resonance</label>
+            <input id="resonance" type="range" min="0" max="1" step="any">
+            <label for="envelope-amount">Envelope Amount</label>
+            <input id="envelope-amount" type="range" min="0" max="1" step="any">
+            <label for="invert-envelope">Invert Envelope</label>
+            <input id="invert-envelope" type="checkbox">
+            <label for="filter-attack">Attack</label>
+            <input id="filter-attack" type="range" min="0" max="1" step="any">
+            <label for="filter-decay">Decay</label>
+            <input id="filter-decay" type="range" min="0" max="1" step="any">
+            <label for="filter-sustain">Sustain</label>
+            <input id="filter-sustain" type="range" min="0" max="1" step="any">
+            <label for="filter-release">Release</label>
+            <input id="filter-release" type="range" min="0" max="1" step="any">
+        </div>
+        <div class="border-solid border rounded p-2 m-1">
+            <h2 class="title mb-4 text-base">Waveform</h2>
+            <input id="sine" type="radio" name="waveform" checked>
+            <label for="sine">Sine</label>
+            <input id="square" type="radio" name="waveform">
+            <label for="square">Square</label>
+            <input id="sawtooth" type="radio" name="waveform">
+            <label for="sawtooth">Sawtooth</label>
+            <input id="triangle" type="radio" name="waveform">
+            <label for="triangle">Triangle</label>
+        </div>
+        <div class="border-solid border rounded p-2 m-1">
+            <h2 class="title mb-4 text-base">Volume</h2>
+            <input id="volume" type="range" min="0" max="1" step="any">
+        </div>
       </div>
-      <label for="waveform">Waveform</label>
-      <select id="waveform">
-        <option value="sine">Sine</option>
-        <option value="square">Square</option>
-        <option value="sawtooth">Sawtooth</option>
-        <option value="triangle">Triangle</option>
-      </select>
-      <div>
-        <label for="filter">Filter Type</label>
-        <select id="filter">
-          <option value="lowpass">Low-pass</option>
-          <option value="highpass">High-pass</option>
-          <option value="bandpass">Band-pass</option>
-          <option value="lowshelf">Low-shelf</option>
-          <option value="highshelf">High-shelf</option>
-          <option value="peaking">Peaking</option>
-          <option value="notch">Notch</option>
-          <option value="allpass">All-pass</option>
-        </select>
-        <label for="cutoff">Cutoff</label>
-        <input id="cutoff" type="range" step="0.01">
-        <label for="resonance">Resonance</label>
-        <input id="resonance" type="range" min="0" max="50" step="0.01">
-        <label for="amount">Envelope Amount</label>
-        <input id="amount" type="range" min="-24000" max="24000" step="0.01">
-      </div>
-      <div>
-        <label for="filter-attack">Attack</label>
-        <input id="filter-attack" type="range" min="0.01" max="2" step="0.01">
-        <label for="filter-decay">Decay</label>
-        <input id="filter-decay" type="range" min="0.01" max="2" step="0.01">
-        <label for="filter-sustain">Sustain</label>
-        <input id="filter-sustain" type="range" min="0" max="1" step="0.01">
-        <label for="filter-release">Release</label>
-        <input id="filter-release" type="range" min="0.01" max="2" step="0.01">
-      </div>
-      <div>
+      <div class="mt-4 border dark:border-0">
         <svg id="keyboard" viewBox="0 0 30 9">
           <rect id="C3" x="0" y="0" width="2" height="9" fill="white" />
           <rect id="D3" x="2" y="0" width="2" height="9" fill="white" />
