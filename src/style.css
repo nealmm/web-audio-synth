@@ -56,7 +56,27 @@ SOFTWARE.
 		@apply mx-auto flex min-h-screen max-w-3xl flex-col bg-bgColor px-8 pt-16 font-mono text-sm font-normal text-textColor antialiased;
 	}
 
+	input[type="radio"] {
+		@apply accent-accent;
+	}
+
 	input[type="range"] {
-		width: 100%;
+		@apply appearance-none bg-transparent cursor-pointer w-full;
+	}
+
+	input[type="range"]::-webkit-slider-runnable-track {
+		@apply bg-black h-0.5 rounded;
+	}
+
+	input[type="range"]::-moz-range-track {
+		@apply bg-black h-0.5 rounded;
+	}
+
+	input[type="range"]::-webkit-slider-thumb {
+		@apply appearance-none w-2 h-4 mt-[-0.4375rem] bg-slate-500;
+	}
+
+	input[type="range"]::-moz-range-thumb {
+		@apply border-none rounded-none w-2 h-4 bg-slate-500;
 	}
 }
