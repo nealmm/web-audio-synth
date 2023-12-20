@@ -60,6 +60,10 @@ SOFTWARE.
 		@apply accent-accent;
 	}
 
+	input[type="checkbox"] {
+		@apply accent-accent;
+	}
+
 	input[type="range"] {
 		@apply appearance-none bg-transparent cursor-pointer w-full;
 	}
