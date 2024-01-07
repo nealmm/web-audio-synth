@@ -227,7 +227,7 @@ if (touchSupported) {
     const svg: HTMLElement | null = document.getElementById(id);
 
     if (svg != null) {
-      svg.style.fill = 'lightgray';
+      svg.style.backgroundColor = 'lightgray';
     }
   };
 
@@ -237,7 +237,7 @@ if (touchSupported) {
     const svg: HTMLElement | null = document.getElementById(id);
 
     if (svg != null) {
-      svg.style.fill = '';
+      svg.style.backgroundColor = '';
     }
   };
 
@@ -276,7 +276,7 @@ if (keys != undefined) {
         const svg: HTMLElement | null = document.getElementById(key.id);
 
         if (svg != null) {
-          svg.style.fill = 'lightgray';
+          svg.style.backgroundColor = 'lightgray';
         }
       });
 
@@ -288,7 +288,7 @@ if (keys != undefined) {
             const svg: HTMLElement | null = document.getElementById(key.id);
 
             if (svg != null) {
-              svg.style.fill = 'lightgray';
+              svg.style.backgroundColor = 'lightgray';
             }
           }
         }
@@ -300,7 +300,7 @@ if (keys != undefined) {
         const svg: HTMLElement | null = document.getElementById(key.id);
 
         if (svg != null) {
-          svg.style.fill = '';
+          svg.style.backgroundColor = '';
         }
       });
 
@@ -310,7 +310,7 @@ if (keys != undefined) {
         const svg: HTMLElement | null = document.getElementById(key.id);
 
         if (svg != null) {
-          svg.style.fill = '';
+          svg.style.backgroundColor = '';
         }
       });
     }
@@ -327,7 +327,7 @@ document.addEventListener('keydown', event => {
       const svg: HTMLElement | null = document.getElementById(note);
 
       if (svg != null) {
-        svg.style.fill = 'lightgray';
+        svg.style.backgroundColor = 'lightgray';
       }
     }
   }
@@ -343,7 +343,7 @@ document.addEventListener('keyup', event => {
       const svg: HTMLElement | null = document.getElementById(note);
 
       if (svg != null) {
-        svg.style.fill = '';
+        svg.style.backgroundColor = '';
       }
     }
   }

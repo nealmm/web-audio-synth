@@ -83,4 +83,50 @@ SOFTWARE.
 	input[type="range"]::-moz-range-thumb {
 		@apply border-none rounded-none w-2 h-4 bg-slate-500;
 	}
+
+	#keyboard {
+		display: flex;
+		align-items: start;
+		width: 100%;
+	}
+
+	.white-key {
+		box-sizing: border-box;
+		aspect-ratio: 2 / 9;
+		width: 14.285714%;
+		border: thin solid black;
+		background-color: white;
+	}
+
+	.black-key {
+		z-index: 1;
+		aspect-ratio: 2 / 11;
+		width: 7.142857%;
+		margin: 0 -3.571429%;
+		background-color: black;
+	}
+
+	.extra {
+		display: none;
+	}
+
+	@media (min-width: 660px) {
+		/* .controls {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+		} */
+
+		.white-key {
+			width: 6.666667%;
+		}
+
+		.black-key {
+			width: 3.333333%;
+			margin: 0 -1.666667%;
+		}
+
+		.extra {
+			display: block;
+		}
+	}
 }
