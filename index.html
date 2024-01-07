@@ -34,7 +34,7 @@
                 <label for="triangle">Triangle</label>
             </div>
         </fieldset>
-        <fieldset class="envelope-controls">
+        <fieldset class="slider-controls">
             <legend>Amplitude Envelope</legend>
             <label for="amplitude-attack">Attack</label>
             <input id="amplitude-attack" type="range" min="0" max="1" step="any">
@@ -47,25 +47,17 @@
         </fieldset>
         <fieldset>
             <legend>Low-Pass Filter</legend>
-            <div class="filter-controls">
-                <div>
-                    <label for="cutoff">Cutoff</label>
-                    <input id="cutoff" type="range" min="0" max="1" step="any">
-                </div>
-                <div>
-                    <label for="resonance">Resonance</label>
-                    <input id="resonance" type="range" min="0" max="1" step="any">
-                </div>
-                <div>
-                    <label for="envelope-amount">Envelope Amount</label>
-                    <input id="envelope-amount" type="range" min="0" max="1" step="any">
-                </div>
-                <div>
-                    <input id="invert-envelope" type="checkbox">
-                    <label for="invert-envelope">Invert</label>
-                </div>
+            <div class="slider-controls mb-2">
+                <label for="cutoff">Cutoff</label>
+                <input id="cutoff" type="range" min="0" max="1" step="any">
+                <label for="resonance">Resonance</label>
+                <input id="resonance" type="range" min="0" max="1" step="any">
+                <label for="envelope-amount">Envelope Amount</label>
+                <input id="envelope-amount" type="range" min="0" max="1" step="any">
             </div>
-            <div class="envelope-controls">
+            <input id="invert-envelope" type="checkbox">
+            <label for="invert-envelope">Invert Envelope</label>
+            <div class="slider-controls mt-2">
                 <label for="filter-attack">Attack</label>
                 <input id="filter-attack" type="range" min="0" max="1" step="any">
                 <label for="filter-decay">Decay</label>

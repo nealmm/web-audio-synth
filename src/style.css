@@ -81,14 +81,9 @@ SOFTWARE.
 		display: inline-block;
 	}
 
-	.envelope-controls {
+	.slider-controls {
 		display: grid;
 		grid-template-columns: auto 1fr;
-	}
-
-	.filter-controls {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
 	}
 
 	#keyboard {
