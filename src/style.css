@@ -53,40 +53,47 @@ SOFTWARE.
 	}
 
 	html body {
-		@apply mx-auto flex min-h-screen max-w-3xl flex-col bg-bgColor px-8 pt-16 font-mono text-sm font-normal text-textColor antialiased;
+		@apply mx-auto mx-0 flex min-h-screen flex-col bg-bgColor px-8 pt-16 font-mono text-sm font-normal text-textColor antialiased;
 	}
 
-	input[type="radio"] {
-		@apply accent-accent;
-	}
-
-	input[type="checkbox"] {
+	input {
 		@apply accent-accent;
 	}
 
 	input[type="range"] {
-		@apply appearance-none bg-transparent cursor-pointer w-full mb-4;
+		@apply m-1 w-full;
 	}
 
-	input[type="range"]::-webkit-slider-runnable-track {
-		@apply bg-black h-0.5 rounded;
+	fieldset {
+		all: revert;
 	}
 
-	input[type="range"]::-moz-range-track {
-		@apply bg-black h-0.5 rounded;
+	legend {
+		all: revert;
 	}
 
-	input[type="range"]::-webkit-slider-thumb {
-		@apply appearance-none w-2 h-4 mt-[-0.4375rem] bg-slate-500;
+	.waveform-fieldset {
+		display: flex;
+		justify-content: space-around;
 	}
 
-	input[type="range"]::-moz-range-thumb {
-		@apply border-none rounded-none w-2 h-4 bg-slate-500;
+	.waveform-option {
+		display: inline-block;
+	}
+
+	.envelope-controls {
+		display: grid;
+		grid-template-columns: auto 1fr;
+	}
+
+	.filter-controls {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 	}
 
 	#keyboard {
 		display: flex;
-		align-items: start;
+		align-items: flex-start;
 		width: 100%;
 	}
 
@@ -111,10 +118,10 @@ SOFTWARE.
 	}
 
 	@media (min-width: 660px) {
-		/* .controls {
+		.controls {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
-		} */
+		}
 
 		.white-key {
 			width: 6.666667%;

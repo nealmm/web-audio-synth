@@ -10,9 +10,32 @@
       Web Audio Synth
     </h1>
     <main>
-      <div class="flex flex-wrap justify-center">
-        <div class="md:w-[48%] border-solid border rounded p-2 m-1">
-            <h2 class="title mb-4 text-base col-span-2">Amplitude Envelope</h2>
+      <div class="controls">
+        <fieldset>
+            <legend>Volume</legend>
+            <input id="volume" type="range" min="0" max="1" step="any">
+        </fieldset>
+        <fieldset class="waveform-fieldset">
+            <legend>Waveform</legend>
+            <div class="waveform-option">
+                <input id="sine" type="radio" name="waveform" checked>
+                <label for="sine">Sine</label>
+            </div>
+            <div class="waveform-option">
+                <input id="square" type="radio" name="waveform">
+                <label for="square">Square</label>
+            </div>
+            <div class="waveform-option">
+                <input id="sawtooth" type="radio" name="waveform">
+                <label for="sawtooth">Sawtooth</label>
+            </div>
+            <div class="waveform-option">
+                <input id="triangle" type="radio" name="waveform">
+                <label for="triangle">Triangle</label>
+            </div>
+        </fieldset>
+        <fieldset class="envelope-controls">
+            <legend>Amplitude Envelope</legend>
             <label for="amplitude-attack">Attack</label>
             <input id="amplitude-attack" type="range" min="0" max="1" step="any">
             <label for="amplitude-decay">Decay</label>
@@ -21,52 +44,38 @@
             <input id="amplitude-sustain" type="range" min="0" max="1" step="any">
             <label for="amplitude-release">Release</label>
             <input id="amplitude-release" type="range" min="0" max="1" step="any">
-        </div>
-        <div class="md:w-[48%] border-solid border rounded p-2 m-1">
-            <h2 class="title mb-4 text-base col-span-2">Low-Pass Filter</h2>
-            <label for="cutoff">Cutoff</label>
-            <input id="cutoff" type="range" min="0" max="1" step="any">
-            <label for="resonance">Resonance</label>
-            <input id="resonance" type="range" min="0" max="1" step="any">
-            <label for="envelope-amount">Envelope Amount</label>
-            <input id="envelope-amount" type="range" min="0" max="1" step="any">
-            <label for="invert-envelope">Invert Envelope</label>
-            <input id="invert-envelope" class="my-8" type="checkbox">
-            <br>
-            <label for="filter-attack">Attack</label>
-            <input id="filter-attack" type="range" min="0" max="1" step="any">
-            <label for="filter-decay">Decay</label>
-            <input id="filter-decay" type="range" min="0" max="1" step="any">
-            <label for="filter-sustain">Sustain</label>
-            <input id="filter-sustain" type="range" min="0" max="1" step="any">
-            <label for="filter-release">Release</label>
-            <input id="filter-release" type="range" min="0" max="1" step="any">
-        </div>
-        <div class="w-[97%] border-solid border rounded p-2 m-1">
-            <h2 class="title mb-4 text-base">Waveform</h2>
-            <div class="flex justify-around flex-wrap">
-              <div class="px-4">
-                <input id="sine" type="radio" name="waveform" checked>
-                <label for="sine">Sine</label>
-              </div>
-              <div class="px-4">
-                <input id="square" type="radio" name="waveform">
-                <label for="square">Square</label>
-              </div>
-              <div class="px-4">
-                <input id="sawtooth" type="radio" name="waveform">
-                <label for="sawtooth">Sawtooth</label>
-              </div>
-              <div class="px-4">
-                <input id="triangle" type="radio" name="waveform">
-                <label for="triangle">Triangle</label>
-              </div>
+        </fieldset>
+        <fieldset>
+            <legend>Low-Pass Filter</legend>
+            <div class="filter-controls">
+                <div>
+                    <label for="cutoff">Cutoff</label>
+                    <input id="cutoff" type="range" min="0" max="1" step="any">
+                </div>
+                <div>
+                    <label for="resonance">Resonance</label>
+                    <input id="resonance" type="range" min="0" max="1" step="any">
+                </div>
+                <div>
+                    <label for="envelope-amount">Envelope Amount</label>
+                    <input id="envelope-amount" type="range" min="0" max="1" step="any">
+                </div>
+                <div>
+                    <input id="invert-envelope" type="checkbox">
+                    <label for="invert-envelope">Invert</label>
+                </div>
             </div>
-        </div>
-        <div class="w-[97%] border-solid border rounded p-2 m-1">
-            <h2 class="title mb-4 text-base">Volume</h2>
-            <input id="volume" type="range" min="0" max="1" step="any">
-        </div>
+            <div class="envelope-controls">
+                <label for="filter-attack">Attack</label>
+                <input id="filter-attack" type="range" min="0" max="1" step="any">
+                <label for="filter-decay">Decay</label>
+                <input id="filter-decay" type="range" min="0" max="1" step="any">
+                <label for="filter-sustain">Sustain</label>
+                <input id="filter-sustain" type="range" min="0" max="1" step="any">
+                <label for="filter-release">Release</label>
+                <input id="filter-release" type="range" min="0" max="1" step="any">
+            </div>
+        </fieldset>
       </div>
       <div class="mt-4 border dark:border-0 select-none">
         <div id="keyboard">
