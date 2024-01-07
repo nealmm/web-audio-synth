@@ -100,17 +100,19 @@ SOFTWARE.
 
 	.white-key {
 		box-sizing: border-box;
-		aspect-ratio: 2 / 9;
+		aspect-ratio: 2 / 7;
 		width: 14.285714%;
 		border: thin solid black;
 		background-color: white;
 	}
 
 	.black-key {
+		box-sizing: border-box;
 		z-index: 1;
-		aspect-ratio: 2 / 11;
-		width: 7.142857%;
-		margin: 0 -3.571429%;
+		aspect-ratio: 2 / 4;
+		width: 14.285714%;
+		margin: 0 -7.142857%;
+		border: thin solid white;
 		background-color: black;
 	}
 
@@ -137,11 +139,15 @@ SOFTWARE.
 
 		.white-key {
 			width: 6.666667%;
+			/* aspect-ratio: 2 / 7; */
 		}
 
 		.black-key {
-			width: 3.333333%;
-			margin: 0 -1.666667%;
+			/* width: 3.333333%;
+			margin: 0 -1.666667%; */
+			width: 6.666667%;
+			/* aspect-ratio: 2 / 4; */
+			margin: 0 -3.333333%;
 		}
 
 		.extra {
@@ -149,3 +155,5 @@ SOFTWARE.
 		}
 	}
 }
+
+/* LETS MAKE THE KEYBOARD MORE TOUCH FRIENDLY */
