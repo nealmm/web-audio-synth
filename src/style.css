@@ -75,6 +75,7 @@ SOFTWARE.
 	.waveform-fieldset {
 		display: flex;
 		justify-content: space-around;
+		align-items: center;
 	}
 
 	.waveform-option {
@@ -121,6 +122,17 @@ SOFTWARE.
 		.controls {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
+		}
+
+		.volume-fieldset {
+			grid-column-start: 1;
+			grid-column-end: 3;
+		}
+
+		.filter-fieldset {
+			grid-row-start: 2;
+			grid-row-end: 4;
+			grid-column-start: 2
 		}
 
 		.white-key {
