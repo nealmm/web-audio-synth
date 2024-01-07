@@ -72,6 +72,11 @@ SOFTWARE.
 		all: revert;
 	}
 
+	label {
+		display: flex;
+		align-items: center;
+	}
+
 	.waveform-fieldset {
 		display: flex;
 		justify-content: space-around;
