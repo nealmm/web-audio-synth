@@ -72,11 +72,6 @@ SOFTWARE.
 		all: revert;
 	}
 
-	label {
-		display: flex;
-		align-items: center;
-	}
-
 	.waveform-fieldset {
 		display: flex;
 		justify-content: space-around;
@@ -89,6 +84,11 @@ SOFTWARE.
 	.slider-controls {
 		display: grid;
 		grid-template-columns: auto 1fr;
+	}
+
+	.slider-controls label {
+		display: flex;
+		align-items: center;
 	}
 
 	#keyboard {
