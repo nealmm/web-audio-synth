@@ -218,7 +218,9 @@ if (filterReleaseInput != null && filterReleaseInput instanceof HTMLInputElement
 
 const touchSupported = 'ontouchstart' in window;
 
-if (touchSupported) {
+const keyboard: HTMLElement | null = document.getElementById('keyboard');
+
+if (touchSupported && keyboard != null) {
   const lastTarget: { [key: string]: Element } = {};
 
   const handlePress = (id: string) => {
@@ -241,21 +243,37 @@ if (touchSupported) {
     }
   };
 
-  document.addEventListener('touchstart', event => {
+  keyboard.addEventListener('touchstart', event => {
+    event.preventDefault();
     for (const touch of event.changedTouches) {
       lastTarget[touch.identifier] = touch.target as Element;
       handlePress((touch.target as Element).id);
     }
   });
 
-  document.addEventListener('touchend', event => {
+  keyboard.addEventListener('touchmove', event => {
+    event.preventDefault();
     for (const touch of event.changedTouches) {
-      handleDepress((touch.target as Element).id);
+      const elem: Element | null= document.elementFromPoint(touch.clientX, touch.clientY);
+
+      if (elem != null && lastTarget[touch.identifier] != elem) {
+        handleDepress(lastTarget[touch.identifier].id);
+        lastTarget[touch.identifier] = elem;
+        handlePress(elem.id);
+      }
+    }
+  });
+
+  keyboard.addEventListener('touchend', event => {
+    event.preventDefault();
+    for (const touch of event.changedTouches) {
+      handleDepress(lastTarget[touch.identifier].id);
       delete lastTarget[touch.identifier];
     }
   });
 
-  document.addEventListener('touchcancel', event => {
+  keyboard.addEventListener('touchcancel', event => {
+    event.preventDefault();
     for (const touch of event.changedTouches) {
       handleDepress(lastTarget[touch.identifier].id);
       delete lastTarget[touch.identifier];
